@@ -12,8 +12,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <vector>
+
+
 using namespace std;
 
 int powerMod(int a,int n,int m) {
@@ -37,9 +37,11 @@ bool MillerRabin(int sample) {
         sample = sample/2;
         r++;
     }
+    if(orig == 2)
+        return true;
     for (int k = 0; k < log(orig); k ++) {
-        srand(time(NULL));
-        int a = rand() % (orig - 2) + 2;
+        
+        int a = rand() % (orig-2) + 2;
         int x = powerMod(a,sample,orig);
         if (x == 1 || x == orig - 1) continue;
         for (int i = 0; i < r; i ++) {
@@ -57,29 +59,29 @@ bool MillerRabin(int sample) {
     return true;
 }
 int main() {
-    vector<int> mynumbers;
-    ifstream numberfile;
-    int i;
-    try {
-        numberfile.open("hw2.dat");
+    
+    ifstream myfile("hw2.dat");
+    
+    if(myfile.fail()) {
+        cout << "Failed to open file 'hw2.dat'" << endl;
     }
-    catch (string e) {
-        cout << "Unable to open file: " << "hw2.dat";
-    }
-    while(numberfile.good()) {
-        numberfile >> i;
-        mynumbers.push_back(i);
-    }
-    numberfile.close();
-    for(int i = 0; i < sizeof(mynumbers); i ++) {
-        if(MillerRabin(mynumbers[i])) {
-            cout << mynumbers[i] << ": " << "True";
+    
+    while(myfile.good()) {
+        int num;
+        myfile >> num;
+        if(MillerRabin(num)) {
+            cout << num << ": " << "True" << '\n';
         }
         else {
-            cout << mynumbers[i] << ": " << "False";
+            cout << num << ": " << "False" << '\n';
         }
+        
     }
+    
+    myfile.close();
+
     return 0;
+    
 }
 
 
