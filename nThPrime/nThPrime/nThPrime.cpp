@@ -1,3 +1,11 @@
+//
+//  main.cpp
+//  nThPrime
+//
+//  Created by EricZhang on 9/7/16.
+//  Copyright © 2016 EricZhang. All rights reserved.
+//
+
 #include<iostream>
 #include<math.h>
 using namespace std;
